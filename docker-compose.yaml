@@ -1,0 +1,38 @@
+################################################################################
+# Node-RED Stack or Compose
+################################################################################
+# docker stack deploy node-red --compose-file docker-compose-node-red.yml
+# docker-compose -f docker-compose-node-red.yml -p myNoderedProject up
+################################################################################
+version: "3.7"
+
+services:
+  node-red:
+    image: nodered/node-red:latest
+    container_name: moduloAPI
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "1881:1880"
+    #networks:
+    #  - node-red-net
+    volumes:
+      - ./my-node-red-data:/data
+  app:
+    image: node:12-alpine
+    container_name: API
+    ports:
+      - 3000:3000
+    working_dir: /API
+    volumes:
+      - ./API:/API
+      
+    command: sh -c "yarn install && yarn run dev"
+    #environment:
+    #  MYSQL_HOST: mysql
+    #  MYSQL_USER: root
+    #  MYSQL_PASSWORD: secret
+    #  MYSQL_DB: todos
+
+#networks:
+  #node-red-net:

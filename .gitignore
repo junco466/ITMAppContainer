@@ -1,0 +1,5 @@
+/node_modules
+yarn.lock
+my-node-red-data/node_modules
+my-node-red-data/.npm
+
